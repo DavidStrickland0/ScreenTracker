@@ -20,10 +20,11 @@ namespace ScreenTracker
             /// <param name="format"></param>
             public static void CaptureScreenToFile(string filename, ImageFormat format)
             {
-                using var bitmap = new Bitmap(SystemInformation.VirtualScreen.Right, SystemInformation.VirtualScreen.Bottom);
+                
+                using var bitmap = new Bitmap(SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
                 using (var g = Graphics.FromImage(bitmap))
                 {
-                    g.CopyFromScreen(0, 0, 0, 0,
+                    g.CopyFromScreen(SystemInformation.VirtualScreen.Location.X, SystemInformation.VirtualScreen.Location.Y, 0, 0,
                         bitmap.Size, CopyPixelOperation.SourceCopy);
                 }
                 bitmap.Save(filename,ImageFormat.Jpeg);
